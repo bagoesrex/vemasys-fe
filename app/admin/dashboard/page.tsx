@@ -24,10 +24,10 @@ const timeRanges = ['Last 3 months', 'Last 30 days', 'Last 7 days']
 export default function AdminDashboardPage() {
   const [range, setRange] = useState('Last 3 months')
   const [stats, setStats] = useState([
-    { title: 'Total Bookings', value: '-', note: '' },
-    { title: 'Pending Approvals', value: '-', note: '' },
-    { title: 'Active Vehicles', value: '-', note: '' },
-    { title: 'Rejected Bookings', value: '-', note: '' },
+    { title: 'Total Bookings', value: '-', note: '',color: 'text-green-600' },
+    { title: 'Pending Approvals', value: '-', note: '',color: 'text-yellow-600' },
+    { title: 'Active Vehicles', value: '-', note: '',color: 'text-blue-600' },
+    { title: 'Rejected Bookings', value: '-', note: '',color: 'text-red-600' },
   ])
   const [chartData, setChartData] = useState<{ date: string; bookings: number }[]>([])
 
@@ -57,26 +57,31 @@ export default function AdminDashboardPage() {
 
         setStats([
           {
+            title: 'Active Vehicles',
+            value: activeVehicles.length.toString(),
+            note: 'Status kendaraan aktif',
+            color: 'text-blue-600',
+          },
+          {
             title: 'Approved Bookings',
             value: approvedBookings.length.toString(),
             note: 'Total booking disetujui',
+            color: 'text-green-600',
           },
           {
             title: 'Pending Approvals',
             value: pending.length.toString(),
             note: 'Menunggu persetujuan',
-          },
-          {
-            title: 'Active Vehicles',
-            value: activeVehicles.length.toString(),
-            note: 'Status kendaraan aktif',
+            color: 'text-yellow-600',
           },
           {
             title: 'Rejected Bookings',
             value: rejected.length.toString(),
             note: 'Penolakan pemesanan',
+            color: 'text-red-600',
           },
         ])
+
 
         const grouped = bookings.reduce((acc: { [x: string]: any }, b: { booking_date: string | number | Date }) => {
           const date = new Date(b.booking_date).toLocaleDateString('en-US', {
@@ -107,7 +112,7 @@ export default function AdminDashboardPage() {
           <Card key={i}>
             <CardHeader>
               <CardDescription>{stat.title}</CardDescription>
-              <CardTitle className="text-2xl font-bold">{stat.value}</CardTitle>
+              <CardTitle className={`text-2xl font-bold ${stat.color}`}>{stat.value}</CardTitle>
               <p className="text-xs text-muted-foreground">{stat.note}</p>
             </CardHeader>
           </Card>
