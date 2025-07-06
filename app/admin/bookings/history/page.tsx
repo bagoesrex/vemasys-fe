@@ -17,6 +17,7 @@ import {
     TableRow,
 } from '@/components/ui/table'
 import { Skeleton } from '@/components/ui/skeleton'
+import { formatID } from '@/lib/date'
 
 interface Booking {
     id: number
@@ -88,7 +89,7 @@ export default function AdminBookingHistoryPage() {
                                     return (
                                         <TableRow key={b.id}>
                                             <TableCell>{b.id}</TableCell>
-                                            <TableCell>{b.booking_date}</TableCell>
+                                            <TableCell>{formatID(b.booking_date)}</TableCell>
                                             <TableCell>{b.user?.name}</TableCell>
                                             <TableCell>{b.driver?.name}</TableCell>
                                             <TableCell>

@@ -17,6 +17,7 @@ import {
     CardTitle,
 } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
+import { formatID, formatRangeID } from '@/lib/date'
 
 interface Approval {
     id: number
@@ -92,9 +93,9 @@ export default function ApproverApprovalTablePage() {
                                         <TableRow key={`${booking.id}-${approval.id}`}>
                                             <TableCell>{booking.id}</TableCell>
                                             <TableCell>{booking.purpose}</TableCell>
-                                            <TableCell>{booking.booking_date}</TableCell>
+                                            <TableCell>{formatID(booking.booking_date)}</TableCell>
                                             <TableCell>
-                                                {booking.start_time} – {booking.end_time}
+                                                {formatRangeID(booking.start_time, booking.end_time)}
                                             </TableCell>
                                             <TableCell>{approval.level}</TableCell>
                                             <TableCell className="capitalize">

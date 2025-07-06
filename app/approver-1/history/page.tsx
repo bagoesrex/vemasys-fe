@@ -17,7 +17,7 @@ import {
     TableRow,
 } from '@/components/ui/table'
 import { Skeleton } from '@/components/ui/skeleton'
-import { formatID, formatRangeID, formatToLaravel } from '@/lib/date'
+import { formatID, formatRangeID } from '@/lib/date'
 
 interface Approval {
     id: number
