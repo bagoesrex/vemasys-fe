@@ -43,7 +43,7 @@ export default function AdminLayout({
                         </BreadcrumbList>
                     </Breadcrumb>
                 </header>
-                <div className="flex flex-1 flex-col p-4">
+                <div className="flex flex-1 flex-col">
                     {children}
                 </div>
             </SidebarInset>
