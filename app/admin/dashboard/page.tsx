@@ -7,7 +7,6 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
 import {
   Area,
   AreaChart,
@@ -19,18 +18,15 @@ import {
 import { useEffect, useState } from 'react'
 import api from '@/utils/api'
 
-const timeRanges = ['Last 3 months', 'Last 30 days', 'Last 7 days']
-
 export default function AdminDashboardPage() {
-  const [range, setRange] = useState('Last 3 months')
   const [stats, setStats] = useState([
-    { title: 'Total Bookings', value: '-', note: '',color: 'text-green-600' },
-    { title: 'Pending Approvals', value: '-', note: '',color: 'text-yellow-600' },
-    { title: 'Active Vehicles', value: '-', note: '',color: 'text-blue-600' },
-    { title: 'Rejected Bookings', value: '-', note: '',color: 'text-red-600' },
+    { title: 'Approved Bookings', value: '-', note: 'Total booking disetujui', color: 'text-green-600' },
+    { title: 'Pending Approvals', value: '-', note: 'Menunggu persetujuan', color: 'text-yellow-600' },
+    { title: 'Active Vehicles', value: '-', note: 'Status kendaraan aktif', color: 'text-blue-600' }, // bisa diganti sesuai preferensi
+    { title: 'Rejected Bookings', value: '-', note: 'Penolakan pemesanan', color: 'text-red-600' },
   ])
-  const [chartData, setChartData] = useState<{ date: string; bookings: number }[]>([])
 
+  const [chartData, setChartData] = useState<{ date: string; bookings: number }[]>([])
 
   useEffect(() => {
     const fetchStats = async () => {
@@ -57,12 +53,6 @@ export default function AdminDashboardPage() {
 
         setStats([
           {
-            title: 'Active Vehicles',
-            value: activeVehicles.length.toString(),
-            note: 'Status kendaraan aktif',
-            color: 'text-blue-600',
-          },
-          {
             title: 'Approved Bookings',
             value: approvedBookings.length.toString(),
             note: 'Total booking disetujui',
@@ -75,6 +65,12 @@ export default function AdminDashboardPage() {
             color: 'text-yellow-600',
           },
           {
+            title: 'Active Vehicles',
+            value: activeVehicles.length.toString(),
+            note: 'Status kendaraan aktif',
+            color: 'text-blue-600',
+          },
+          {
             title: 'Rejected Bookings',
             value: rejected.length.toString(),
             note: 'Penolakan pemesanan',
@@ -82,15 +78,17 @@ export default function AdminDashboardPage() {
           },
         ])
 
-
-        const grouped = bookings.reduce((acc: { [x: string]: any }, b: { booking_date: string | number | Date }) => {
-          const date = new Date(b.booking_date).toLocaleDateString('en-US', {
-            month: 'short',
-            day: 'numeric',
-          })
-          acc[date] = (acc[date] || 0) + 1
-          return acc
-        }, {})
+        const grouped = bookings.reduce(
+          (acc: { [x: string]: any }, b: { booking_date: string | number | Date }) => {
+            const date = new Date(b.booking_date).toLocaleDateString('en-US', {
+              month: 'short',
+              day: 'numeric',
+            })
+            acc[date] = (acc[date] || 0) + 1
+            return acc
+          },
+          {}
+        )
 
         const data = Object.entries(grouped).map(([date, bookings]) => ({
           date,
@@ -120,22 +118,10 @@ export default function AdminDashboardPage() {
       </div>
 
       <Card>
-        <CardHeader className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+        <CardHeader>
           <div>
             <CardTitle className="text-lg">Total Bookings</CardTitle>
-            <CardDescription>Total for the last 3 months</CardDescription>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {timeRanges.map((label) => (
-              <Button
-                key={label}
-                variant={range === label ? 'default' : 'ghost'}
-                size="sm"
-                onClick={() => setRange(label)}
-              >
-                {label}
-              </Button>
-            ))}
+            <CardDescription>Total for all time</CardDescription>
           </div>
         </CardHeader>
         <CardContent className="h-[300px] w-full">

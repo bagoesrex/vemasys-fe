@@ -33,7 +33,7 @@ export default function AdminRequestPage() {
 
   const [form, setForm] = useState({
     vehicle_id: '',
-    user_id: '',
+    user_id: '1',
     region_id: '',
     driver_id: '',
     booking_date: '',
@@ -43,7 +43,6 @@ export default function AdminRequestPage() {
   })
 
   const [vehicles, setVehicles] = useState<any[]>([])
-  const [users, setUsers] = useState<any[]>([])
   const [drivers, setDrivers] = useState<any[]>([])
   const [regions, setRegions] = useState<any[]>([])
 
@@ -71,14 +70,12 @@ export default function AdminRequestPage() {
   useEffect(() => {
     const fetchOptions = async () => {
       try {
-        const [v, u, d, r] = await Promise.all([
+        const [v, d, r] = await Promise.all([
           api.get('/vehicles'),
-          api.get('/users'),
           api.get('/drivers'),
           api.get('/regions'),
         ])
         setVehicles(v.data)
-        setUsers(u.data)
         setDrivers(d.data)
         setRegions(r.data)
       } catch (error) {
@@ -109,22 +106,6 @@ export default function AdminRequestPage() {
                       {vehicles.map((v) => (
                         <SelectItem key={v.id} value={String(v.id)}>
                           {v.license_plate} - {v.brand}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div>
-                  <Label>User</Label>
-                  <Select onValueChange={(val) => handleChange('user_id', val)}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Pilih user" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {users.map((u) => (
-                        <SelectItem key={u.id} value={String(u.id)}>
-                          {u.name} ({u.role})
                         </SelectItem>
                       ))}
                     </SelectContent>
