@@ -3,6 +3,7 @@
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupLabel, SidebarGroupContent, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarRail } from "@/components/ui/sidebar"
 import Cookies from "js-cookie"
 import { navByRole } from "@/lib/navigation"
+import Link from "next/link"
 
 export function AppSidebar({ ...props }) {
   const role = Cookies.get("role") || "guest"
@@ -22,10 +23,10 @@ export function AppSidebar({ ...props }) {
                 {group.items.map((item) => (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton asChild>
-                      <a href={item.url} className="flex items-center">
+                      <Link href={item.url} className="flex items-center">
                         {item.icon && <item.icon className="w-4 h-4 mr-2" />}
                         {item.title}
-                      </a>
+                      </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}
