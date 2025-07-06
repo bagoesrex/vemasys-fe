@@ -27,16 +27,16 @@ export default function LoginPage() {
 
       switch (user.role) {
         case 'admin':
-          router.push('/admin/bookings/request')
+          router.push('/admin/bookings/dashboard')
           break
         case 'approver_1':
-          router.push('/approver-1/approve')
+          router.push('/approver-1/dashboard')
           break
         case 'approver_2':
-          router.push('/approver-2/approve')
+          router.push('/approver-2/dashboard')
           break
         default:
-          router.push('/dashboard')
+          router.push('/')
       }
     } catch (error: any) {
       setErrorMsg(error.response?.data?.message || 'Login gagal. Silakan coba lagi.')

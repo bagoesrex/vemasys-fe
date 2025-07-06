@@ -4,6 +4,8 @@ import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupLabel, SidebarGroupC
 import Cookies from "js-cookie"
 import { navByRole } from "@/lib/navigation"
 import Link from "next/link"
+import Icon from "@/public/icon.png"
+import Image from "next/image"
 
 export function AppSidebar({ ...props }) {
   const role = Cookies.get("role") || "guest"
@@ -12,7 +14,12 @@ export function AppSidebar({ ...props }) {
   return (
     <Sidebar {...props}>
       <SidebarHeader>
-        <h1>VAMESYS ICON</h1>
+        <Link href={`/${role}/dashboard`} className="flex items-center gap-3">
+          <Image src={Icon} alt="VAMESYS Icon" width={80} height={80} />
+          <span className="text-lg font-semibold tracking-wide text-primary">
+            VYMASYS
+          </span>
+        </Link>
       </SidebarHeader>
       <SidebarContent>
         {navData.map((group) => (
