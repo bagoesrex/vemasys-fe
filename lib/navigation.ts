@@ -28,17 +28,17 @@ export const navByRole: Record<string, NavGroup[]> = {
         {
             title: "Manage Vehicles",
             items: [
-                { title: "Vehicles", url: "/vehicles", icon: BusFront },
-                { title: "Fuel Logs", url: "/vehicles/fuel-logs", icon: Fuel },
-                { title: "Service Records", url: "/vehicles/services", icon: Wrench },
+                { title: "Vehicles", url: "/admin/vehicles", icon: BusFront },
+                { title: "Fuel Logs", url: "/admin/fuel-logs", icon: Fuel },
+                { title: "Service Records", url: "/admin/service-records", icon: Wrench },
             ],
         },
         {
             title: "Others",
             items: [
-                { title: "Drivers", url: "/drivers", icon: UserCog },
-                { title: "Regions", url: "/regions", icon: MapPinned },
-                { title: "Users", url: "/users", icon: Users },
+                { title: "Drivers", url: "/admin/drivers", icon: UserCog },
+                { title: "Regions", url: "/admin/regions", icon: MapPinned },
+                { title: "Users", url: "/admin/users", icon: Users },
             ],
         },
     ],
