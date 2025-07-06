@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation'
 import { AppSidebar } from '@/components/app-sidebar'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
+import Cookies from 'js-cookie'
 import {
     SidebarInset,
     SidebarProvider,
@@ -21,9 +22,12 @@ export default function AdminLayout({
     const handleLogout = async () => {
         try {
             await api.post('/logout')
-            router.push('/login')
         } catch (error) {
             console.error('Logout gagal', error)
+        } finally {
+            Cookies.remove('token')
+            Cookies.remove('role')
+            router.push('/login')
         }
     }
 
