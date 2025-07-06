@@ -26,8 +26,13 @@ export function formatRangeID(start: string | Date, end: string | Date): string 
     return `${startStr} s.d. ${endStr}`
 }
 
-export function formatID(start: string | Date): string {
-    const startStr = format(new Date(start), 'dd MMM yyyy', { locale: id })
-
-    return `${startStr}`
+export function formatID(dateString?: string | null): string {
+    if (!dateString) return '—'
+    const date = new Date(dateString)
+    if (isNaN(date.getTime())) return '—'
+    return date.toLocaleDateString('id-ID', {
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric',
+    })
 }
